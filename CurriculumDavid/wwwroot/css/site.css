@@ -1,14 +1,153 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: aqua;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding: 4px;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+nav a:active {
+    font-weight: bold;
+}
+
+th {
+    background-color: darkred;
+    color: white;
+}
+
+table {
+    margin-bottom: 15px;
+}
+
+
+article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #f1f1f1;
+    height: 300px; /*only for demonstration, should be removed */
+}
+
+Clear floats after the columns
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens 
+*/
+@media (max-width: 600px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
+}
+
+td, th {
+    padding: 4px;
+    text-align: center;
+}
+
+.video {
+    width: 33%;
+    height: auto;
+}
+
+a.escola {
+    text-decoration: none;
+    color: #4800ff;
+}
+
+    a.escola:link {
+        /* unvisited link */
+        color: black;
+        text-decoration: none;
+    }
+
+    a.escola:visited {
+        /* visited link */
+        color: darkred;
+    }
+
+    a.escola:hover {
+        /*mouse over link */
+        color: red;
+        border-bottom: double;
+    }
+
+    a.escola:active {
+        /*active link */
+        color: darkslategrey;
+    }
+
+#btn {
+    text-align: left;
+}
+
+.jumbotron {
+    background-color: transparent;
+}
+
+#pagini {
+    background-color: lightgrey;
+    padding: 25px;
+}
+
+#uo {
+    background-image: url(../img/logotipo_ipg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+footer {
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    padding-right: 35px;
+    /* line-height: 60px;*/ /*Vertically center the text there*/
+}
+
+
+
+
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
+/*a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
+}*/
 
 /* Provide sufficient contrast against white background */
-a {
+/*a {
   color: #0366d6;
 }
 
@@ -22,11 +161,11 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   font-size: 14px;
 }
 @media (min-width: 768px) {
@@ -49,23 +188,23 @@ html {
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   position: relative;
   min-height: 100%;
 }
 
-body {
+body {*/
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;
 }
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
-}
+  line-height: 60px;*/ /* Vertically center the text there */
+/*}*/
