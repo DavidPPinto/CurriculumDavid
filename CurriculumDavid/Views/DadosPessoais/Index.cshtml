@@ -28,26 +28,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Morada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DadosPessoaisId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Morada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DadosPessoaisId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<a id="voltar" class="btn btn-primary" asp-action="Index" asp-controller="Home">Voltar ao início</a>
