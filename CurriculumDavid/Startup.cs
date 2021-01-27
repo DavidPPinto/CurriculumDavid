@@ -30,6 +30,9 @@ namespace CurriculumDavid
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CurriculumBdContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("CurriculumBdContext")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

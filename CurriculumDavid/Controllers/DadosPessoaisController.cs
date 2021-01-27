@@ -10,22 +10,22 @@ using CurriculumDavid.Models;
 
 namespace CurriculumDavid.Controllers
 {
-    public class InformacaosController : Controller
+    public class DadosPessoaisController : Controller
     {
-        private readonly BdContext _context;
+        private readonly CurriculumBdContext _context;
 
-        public InformacaosController(BdContext context)
+        public DadosPessoaisController(CurriculumBdContext context)
         {
             _context = context;
         }
 
-        // GET: Informacaos
+        // GET: DadosPessoais
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Informacao.ToListAsync());
+            return View(await _context.DadosPessoais.ToListAsync());
         }
 
-        // GET: Informacaos/Details/5
+        // GET: DadosPessoais/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var informacao = await _context.Informacao
-                .FirstOrDefaultAsync(m => m.InformacaoId == id);
-            if (informacao == null)
+            var dadosPessoais = await _context.DadosPessoais
+                .FirstOrDefaultAsync(m => m.DadosPessoaisId == id);
+            if (dadosPessoais == null)
             {
                 return NotFound();
             }
 
-            return View(informacao);
+            return View(dadosPessoais);
         }
 
-        // GET: Informacaos/Create
+        // GET: DadosPessoais/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Informacaos/Create
+        // POST: DadosPessoais/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,DataFormacao")] Informacao informacao)
+        public async Task<IActionResult> Create([Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(informacao);
+                _context.Add(dadosPessoais);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(informacao);
+            return View(dadosPessoais);
         }
 
-        // GET: Informacaos/Edit/5
+        // GET: DadosPessoais/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var informacao = await _context.Informacao.FindAsync(id);
-            if (informacao == null)
+            var dadosPessoais = await _context.DadosPessoais.FindAsync(id);
+            if (dadosPessoais == null)
             {
                 return NotFound();
             }
-            return View(informacao);
+            return View(dadosPessoais);
         }
 
-        // POST: Informacaos/Edit/5
+        // POST: DadosPessoais/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,DataFormacao")] Informacao informacao)
+        public async Task<IActionResult> Edit(int id, [Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais)
         {
-            if (id != informacao.InformacaoId)
+            if (id != dadosPessoais.DadosPessoaisId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CurriculumDavid.Controllers
             {
                 try
                 {
-                    _context.Update(informacao);
+                    _context.Update(dadosPessoais);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InformacaoExists(informacao.InformacaoId))
+                    if (!DadosPessoaisExists(dadosPessoais.DadosPessoaisId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace CurriculumDavid.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(informacao);
+            return View(dadosPessoais);
         }
 
-        // GET: Informacaos/Delete/5
+        // GET: DadosPessoais/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var informacao = await _context.Informacao
-                .FirstOrDefaultAsync(m => m.InformacaoId == id);
-            if (informacao == null)
+            var dadosPessoais = await _context.DadosPessoais
+                .FirstOrDefaultAsync(m => m.DadosPessoaisId == id);
+            if (dadosPessoais == null)
             {
                 return NotFound();
             }
 
-            return View(informacao);
+            return View(dadosPessoais);
         }
 
-        // POST: Informacaos/Delete/5
+        // POST: DadosPessoais/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var informacao = await _context.Informacao.FindAsync(id);
-            _context.Informacao.Remove(informacao);
+            var dadosPessoais = await _context.DadosPessoais.FindAsync(id);
+            _context.DadosPessoais.Remove(dadosPessoais);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InformacaoExists(int id)
+        private bool DadosPessoaisExists(int id)
         {
-            return _context.Informacao.Any(e => e.InformacaoId == id);
+            return _context.DadosPessoais.Any(e => e.DadosPessoaisId == id);
         }
     }
 }

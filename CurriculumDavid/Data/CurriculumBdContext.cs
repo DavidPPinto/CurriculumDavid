@@ -7,13 +7,13 @@ using CurriculumDavid.Models;
 
 namespace CurriculumDavid.Data
 {
-    public class BdContext : DbContext
+    public class CurriculumBdContext : DbContext
     {
-        public BdContext (DbContextOptions<BdContext> options)
+        public CurriculumBdContext (DbContextOptions<CurriculumBdContext> options)
             : base(options)
         {
         }
 
-        public DbSet<CurriculumDavid.Models.Informacao> Informacao { get; set; }
+        public DbSet<CurriculumDavid.Models.DadosPessoais> DadosPessoais { get; set; }
     }
 }
