@@ -8,7 +8,7 @@ namespace CurriculumDavid.Models
 {
     public class Informacao
     {
-        public int Id { get; set; }
+        public int InformacaoId { get; set; }
         public string Nome { get; set; }
 
         [DataType(DataType.Date)]

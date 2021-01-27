@@ -34,7 +34,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var informacao = await _context.Informacao
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.InformacaoId == id);
             if (informacao == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace CurriculumDavid.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,DataFormacao")] Informacao informacao)
         {
-            if (id != informacao.Id)
+            if (id != informacao.InformacaoId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace CurriculumDavid.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InformacaoExists(informacao.Id))
+                    if (!InformacaoExists(informacao.InformacaoId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var informacao = await _context.Informacao
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.InformacaoId == id);
             if (informacao == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace CurriculumDavid.Controllers
 
         private bool InformacaoExists(int id)
         {
-            return _context.Informacao.Any(e => e.Id == id);
+            return _context.Informacao.Any(e => e.InformacaoId == id);
         }
     }
 }

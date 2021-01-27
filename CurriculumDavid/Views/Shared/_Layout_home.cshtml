@@ -21,9 +21,25 @@
         <div>
             <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
                 <div class="container-fluid">
-                    <a id="inicio" class="navbar-brand mr-3 text-white">A página do David</a>
+                    <a id="inicio" href="#" class="navbar-brand mr-3">A página do David</a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
+                            <a href="../index.html" class="nav-item nav-link fa fa-home" title="Início"></a>
+                            <a href="../infdent/dadospessoais.html" class="nav-item nav-link" target="_self">Dados Pessoais</a>
+                            <a href="../infdent/experienciaprofissional.html" class="nav-item nav-link" target="_self">Experiência Profissional</a>
+                            <a href="../infdent/educacaoformacao.html" class="nav-item nav-link" target="_self">Educação e Formação</a>
+                            <a href="../infdent/competenciaslinguisticas.html" class="nav-item nav-link" target="_self">Competências Linguistícas</a>
+
+                            <!--PODE SERVIR MAIS Á FRENTE PARA REGISTO E LOGIN-->
+                            <!--</div>
+                        <div class="navbar-nav ml-auto">
+                            <a href="#" class="nav-item nav-link">Register</a>
+                            <a href="#" class="nav-item nav-link">Login</a>
+                        </div>
+                    </div>-->
                         </div>
                     </div>
                 </div>
@@ -34,28 +50,6 @@
         <main>
             @RenderBody()
 
-            <div class="row">
-                <div id="pagini" class="col-md-3">
-
-                    <a href="infdent/dadospessoais.html" id="btn" class="btn btn-outline-success btn-lg btn-block fa fa-id-card" target="_self">  Dados Pessoais</a>
-                    <a href="infdent/experienciaprofissional.html" id="btn" class="btn btn-outline-success btn-lg btn-block fa fa-handshake-o" target="_self">  Experiência Profissional</a>
-                    <a href="infdent/educacaoformacao.html" id="btn" class="btn btn-outline-success btn-lg btn-block fa fa-book" target="_self">  Educação e Formação</a>
-                    <a href="infdent/competenciaslinguisticas.html" id="btn" class="btn btn-outline-success btn-lg btn-block fa fa-globe" target="_self">  Competências Linguistícas</a>
-                </div>
-
-                <div class="col-md-6">
-                    <div style="background:transparent" !important class="jumbotron">
-
-                        <h1>A página da David</h1>
-
-                        <p class="lead">Esta página têm como objectivo dar a conhecer um pouco de mim, dos meus interesses, de experiências passadas tanto profissionais como académicas e de vida</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <img src="img/fato1.jpg" alt="Fotografia David" title="David Nunes Petrucci Silva Pinto" class="rounded-circle img-fluid">
-                </div>
-
-            </div>
         </main>
     </div>
     <br />
@@ -68,13 +62,33 @@
                     Copyright &copy; 2021
                 </p>
                 <a href="#inicio" class="btn btn-primary">Ir para o topo</a>
+                <!--<a href="../index.html">Voltar ao início</a>-->
+            </div>
+            <div class="col-md-6 text-md-right">
+                <a href="https://www.linkedin.com/in/david-petrucci-pinto-b20a4014" target="_blank">
+                    <img src="../Img/linkedin_logo_1.jpg" title="Linkedin" alt="Linkedin">
+                </a> <br />
+                <!--<a href="#" class="text-dark">Terms of Use</a>
+            <span class="text-muted mx-2">|</span>
+            <a href="#" class="text-dark">Privacy Policy</a>-->
+                <a href="http://www.ipg.pt/website/" target="_blank"><img src="../Img/logotipo_ipg.jpg" title="Site IPG" alt="Logo IPG"></a>
+                <a href="https://upskill.pt/" target="_blank"><img src="../Img/Upskills.png" title="UPskil" alt="Logo Upskill"></a>
+
+            </div>
+        </div>
+        @*<div class="row bg-dark">
+            <div class="col-md-6 text-white">
+                <p>
+                    Copyright &copy; 2021
+                </p>
+                <a href="#inicio" class="btn btn-primary">Ir para o topo</a>
             </div>
             <div class="col-md-6 text-md-right">
                 <a href="http://www.ipg.pt/website/" target="_blank"><img src="Img/logotipo_ipg.jpg" title="Site IPG" alt="Logo IPG"></a>
                 <a href="https://upskill.pt/" target="_blank"><img src="Img/Upskills.png" title="UPskil" alt="Logo Upskill"></a>
 
             </div>
-        </div>
+        </div>*@
     </footer>
 
 
