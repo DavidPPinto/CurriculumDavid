@@ -6,27 +6,26 @@ using System.Threading.Tasks;
 
 namespace CurriculumDavid.Models
 {
-    public class ExpProfissional
+    public class EduFor
     {
-        public int ExpProfissionalId { get; set; }
-        
+        public int EduForId { get; set; }
+
         [Required]
         [Display(Name = "Data de Início")]
-        public DateTime DataInicio { get; set; }
+        public  DateTime DataInicio { get; set; }
 
         [Required]
         [Display(Name = "Data de Fim")]
-        public  DateTime DataFim { get; set; }
-      
-        [Required]
-        [StringLength(300)]
-        [Display(Name = "Nome da Empresa")]
-        public string NomeEmpresa { get; set; }
-        
-        [Required]
-        [StringLength(300)]
-        [Display(Name = "Função")]
-        public string Funcao { get; set; }
+        public DateTime DataFim { get; set; }
 
+        [Required]
+        [StringLength(300)]
+        [Display(Name = "Nome da Formação")]
+        public string NomeFormacao { get; set; }
+
+        [Required]
+        [StringLength(300)]
+        [Display(Name = "Entidade Formadora")]
+        public string EntFormadora { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using CurriculumDavid.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    partial class CurriculumBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210128154717_ExpProfissional1")]
+    partial class ExpProfissional1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,34 +51,6 @@ namespace CurriculumDavid.Migrations
                     b.HasKey("DadosPessoaisId");
 
                     b.ToTable("DadosPessoais");
-                });
-
-            modelBuilder.Entity("CurriculumDavid.Models.EduFor", b =>
-                {
-                    b.Property<int>("EduForId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DataFim")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EntFormadora")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.Property<string>("NomeFormacao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(300)")
-                        .HasMaxLength(300);
-
-                    b.HasKey("EduForId");
-
-                    b.ToTable("EduFor");
                 });
 
             modelBuilder.Entity("CurriculumDavid.Models.ExpProfissional", b =>

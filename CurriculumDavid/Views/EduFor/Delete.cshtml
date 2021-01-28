@@ -1,4 +1,4 @@
-﻿@model CurriculumDavid.Models.ExpProfissional
+﻿@model CurriculumDavid.Models.EduFor
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,37 +8,37 @@
 
 <h3>Tem a certeza que quer apagar este registo?</h3>
 <div>
-    <h4>Experiência Profissional</h4>
+    <h4>Educação e Formação</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataInicio)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataInicio)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DataFim)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataFim)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeEmpresa)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NomeFormacao)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NomeEmpresa)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NomeFormacao)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Funcao)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EntFormadora)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Funcao)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EntFormadora)
         </dd>
     </dl>
-
+    
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ExpProfissionalId" />
+        <input type="hidden" asp-for="EduForId" />
         <input type="submit" value="Apagar" class="btn btn-danger" /> |
         <a class="btn btn-primary" asp-action="Index">Voltar</a>
     </form>

@@ -1,17 +1,18 @@
-﻿@model CurriculumDavid.Models.ExpProfissional
+﻿@model CurriculumDavid.Models.EduFor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Adicionar registo</h1>
+<h1>Editar</h1>
 
-<h4>Experiência Profissional</h4>
+<h4>Educação e Formação</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EduForId" />
             <div class="form-group">
                 <label asp-for="DataInicio" class="control-label"></label>
                 <input asp-for="DataInicio" class="form-control" />
@@ -23,19 +24,18 @@
                 <span asp-validation-for="DataFim" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NomeEmpresa" class="control-label"></label>
-                <input asp-for="NomeEmpresa" class="form-control" />
-                <span asp-validation-for="NomeEmpresa" class="text-danger"></span>
+                <label asp-for="NomeFormacao" class="control-label"></label>
+                <input asp-for="NomeFormacao" class="form-control" />
+                <span asp-validation-for="NomeFormacao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Funcao" class="control-label"></label>
-                <input asp-for="Funcao" class="form-control" />
-                <span asp-validation-for="Funcao" class="text-danger"></span>
+                <label asp-for="EntFormadora" class="control-label"></label>
+                <input asp-for="EntFormadora" class="form-control" />
+                <span asp-validation-for="EntFormadora" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Criar" class="btn btn-primary" /> |
+                <input type="submit" value="Guardar" class="btn btn-outline-primary" /> |
                 <a class="btn btn-primary" asp-action="Index">Voltar</a>
-
             </div>
         </form>
     </div>
