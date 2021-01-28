@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.Escrita)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CompetenciasId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CompetenciasId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CompetenciasId">Delete</a>
+                @*<a asp-action="Edit" asp-route-id="@item.CompetenciasId">Edit</a> |*@
+                <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.CompetenciasId">Detalhes</a> |
+                <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.CompetenciasId">Apagar</a>
             </td>
         </tr>
 }
