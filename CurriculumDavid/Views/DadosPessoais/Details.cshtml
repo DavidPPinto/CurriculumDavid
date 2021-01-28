@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>DadosPessoais</h4>
+    <h4>Dados Pessoais</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.DadosPessoaisId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-primary"asp-action="Edit" asp-route-id="@Model.DadosPessoaisId">Editar</a> |
+    <a class="btn btn-primary" asp-action="Index">Voltar</a>
 </div>
