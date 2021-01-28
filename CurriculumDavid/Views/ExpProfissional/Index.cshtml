@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CurriculumDavid.Models.ExpProfissional>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Experiência Profissional</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Novo registo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataFim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeEmpresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeEmpresa)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcao)
+            </td>
+            <td>
+                @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.ExpProfissionalId">Editar</a> |*@
+                <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.ExpProfissionalId">Detalhes</a> |
+                <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.ExpProfissionalId">Apagar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+  
+</table>
