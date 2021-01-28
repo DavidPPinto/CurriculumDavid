@@ -12,17 +12,17 @@ namespace CurriculumDavid.Controllers
 {
     public class DadosPessoaisController : Controller
     {
-        private readonly CurriculumBdContext _context;
+        private readonly CurriculumBdContext bd;
 
         public DadosPessoaisController(CurriculumBdContext context)
         {
-            _context = context;
+            bd = context;
         }
 
         // GET: DadosPessoais
         public async Task<IActionResult> Index()
         {
-            return View(await _context.DadosPessoais.ToListAsync());
+            return View(await bd.DadosPessoais.ToListAsync());
         }
 
         // GET: DadosPessoais/Details/5
@@ -33,7 +33,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var dadosPessoais = await _context.DadosPessoais
+            var dadosPessoais = await bd.DadosPessoais
                 .FirstOrDefaultAsync(m => m.DadosPessoaisId == id);
             if (dadosPessoais == null)
             {
@@ -58,8 +58,8 @@ namespace CurriculumDavid.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dadosPessoais);
-                await _context.SaveChangesAsync();
+                bd.Add(dadosPessoais);
+                await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(dadosPessoais);
@@ -73,7 +73,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var dadosPessoais = await _context.DadosPessoais.FindAsync(id);
+            var dadosPessoais = await bd.DadosPessoais.FindAsync(id);
             if (dadosPessoais == null)
             {
                 return NotFound();
@@ -97,8 +97,8 @@ namespace CurriculumDavid.Controllers
             {
                 try
                 {
-                    _context.Update(dadosPessoais);
-                    await _context.SaveChangesAsync();
+                    bd.Update(dadosPessoais);
+                    await bd.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +124,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var dadosPessoais = await _context.DadosPessoais
+            var dadosPessoais = await bd.DadosPessoais
                 .FirstOrDefaultAsync(m => m.DadosPessoaisId == id);
             if (dadosPessoais == null)
             {
@@ -139,15 +139,15 @@ namespace CurriculumDavid.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dadosPessoais = await _context.DadosPessoais.FindAsync(id);
-            _context.DadosPessoais.Remove(dadosPessoais);
-            await _context.SaveChangesAsync();
+            var dadosPessoais = await bd.DadosPessoais.FindAsync(id);
+            bd.DadosPessoais.Remove(dadosPessoais);
+            await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DadosPessoaisExists(int id)
         {
-            return _context.DadosPessoais.Any(e => e.DadosPessoaisId == id);
+            return bd.DadosPessoais.Any(e => e.DadosPessoaisId == id);
         }
     }
 }
