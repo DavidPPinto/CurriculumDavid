@@ -4,62 +4,22 @@ using CurriculumDavid.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    partial class CurriculumBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210128165756_CompLing")]
+    partial class CompLing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("CurriculumDavid.Models.ComLing", b =>
-                {
-                    b.Property<int>("CompetenciasId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CompreensaoOral")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Escrita")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("InteracaoOral")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Leitura")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Lingua")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("ProducaoOral")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.HasKey("CompetenciasId");
-
-                    b.ToTable("ComLing");
-                });
 
             modelBuilder.Entity("CurriculumDavid.Models.DadosPessoais", b =>
                 {

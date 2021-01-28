@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CurriculumDavid.Models.ComLing>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Competências Linguisticas</h1>
+
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create">Novo registo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Lingua)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompreensaoOral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Leitura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProducaoOral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InteracaoOral)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Escrita)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lingua)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompreensaoOral)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Leitura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProducaoOral)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InteracaoOral)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Escrita)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CompetenciasId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CompetenciasId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CompetenciasId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

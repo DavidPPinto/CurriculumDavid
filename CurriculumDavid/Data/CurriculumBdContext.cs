@@ -19,5 +19,7 @@ namespace CurriculumDavid.Data
         public DbSet<CurriculumDavid.Models.ExpProfissional> ExpProfissional { get; set; }
 
         public DbSet<CurriculumDavid.Models.EduFor> EduFor { get; set; }
+
+        public DbSet<CurriculumDavid.Models.ComLing> ComLing { get; set; }
     }
 }
