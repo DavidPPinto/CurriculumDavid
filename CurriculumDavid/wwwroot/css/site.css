@@ -8,14 +8,14 @@ body {
 }
 
 
-table {
+/*table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
     padding: 4px;
-}
+}*/
 
-td, th {
+/*td, th {
     border: 1px solid black;
     text-align: left;
     padding: 8px;
@@ -23,24 +23,24 @@ td, th {
 
 table, th, td {
     border: 1px solid black;
-}
+}*/
 
-tr:nth-child(even) {
+/*tr:nth-child(even) {
     background-color: #dddddd;
-}
+}*/
 
 nav a:active {
     font-weight: bold;
 }
 
-th {
+/*th {
     background-color: darkred;
     color: white;
 }
 
 table {
     margin-bottom: 15px;
-}
+}*/
 
 
 article {
@@ -67,11 +67,11 @@ section:after {
     }
 }
 
-td, th {
+/*td, th {
     padding: 4px;
     text-align: center;
 }
-
+*/
 .video {
     width: 33%;
     height: auto;
@@ -117,21 +117,20 @@ a.escola {
     padding: 25px;
 }
 
-#uo {
+/*#uo {
     background-image: url(../img/logotipo_ipg.jpg);
     background-repeat: no-repeat;
     background-position: bottom;
-}
+}*/
 
 footer {
-    padding: 15px;
-    position: fixed;
+    margin-top:15px;
+    position:fixed;
     bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    padding-right: 35px;
+    width:100%;
+   /* white-space: nowrap;*/
     /* line-height: 60px;*/ /*Vertically center the text there*/
-
+}
 
 
 

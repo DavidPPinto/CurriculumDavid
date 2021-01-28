@@ -1,15 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CurriculumDavid.Migrations
 {
-    public partial class DadosPessoais : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Informacao");
-
             migrationBuilder.CreateTable(
                 name: "DadosPessoais",
                 columns: table => new
@@ -31,20 +27,6 @@ namespace CurriculumDavid.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DadosPessoais");
-
-            migrationBuilder.CreateTable(
-                name: "Informacao",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataFormacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Informacao", x => x.Id);
-                });
         }
     }
 }

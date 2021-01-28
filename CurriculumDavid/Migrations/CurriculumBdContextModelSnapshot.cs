@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    partial class BdContextModelSnapshot : ModelSnapshot
+    partial class CurriculumBdContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
