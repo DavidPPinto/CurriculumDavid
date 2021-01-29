@@ -16,9 +16,12 @@ namespace CurriculumDavid.Data
         private static void InsereDadosFicticios(CurriculumBdContext bd)
         {
             //InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
-            InsereComLingFicticiasParaTestarPaginacao(bd);
+            //InsereComLingFicticiasParaTestarPaginacao(bd);
+            InsereEduForFicticiasParaTestarPaginacao(bd);
 
             if (bd.DadosPessoais.Any()) return;
+            if (bd.ComLing.Any()) return;
+            if (bd.EduFor.Any()) return;
 
             bd.DadosPessoais.AddRange(new DadosPessoais[] {
                 new DadosPessoais
@@ -44,6 +47,21 @@ namespace CurriculumDavid.Data
                 }
             });
 
+            bd.SaveChanges();
+        }
+
+        private static void InsereEduForFicticiasParaTestarPaginacao(CurriculumBdContext bd)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                bd.EduFor.Add(new EduFor
+                {
+                    DataInicio = new DateTime(2019,01,12),
+                    DataFim = new DateTime(2019, 01, 12),
+                    NomeFormacao = "Aola " + i,
+                    EntFormadora = "joajf " + i
+                });
+            }
             bd.SaveChanges();
         }
 

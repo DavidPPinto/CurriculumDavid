@@ -12,19 +12,36 @@ namespace CurriculumDavid.Controllers
 {
     public class EduForController : Controller
     {
-        private readonly CurriculumBdContext _context;
+        private readonly CurriculumBdContext bd;
 
         public EduForController(CurriculumBdContext context)
         {
-            _context = context;
+            bd = context;
         }
 
         // GET: EduFor
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagina = 1)
         {
-            return View(await _context.EduFor.ToListAsync());
-        }
+            Paginacao paginacao = new Paginacao
+            {
+                TotalItems = await bd.EduFor.CountAsync(),
+                PaginaAtual = pagina
+            };
 
+            List<EduFor> eduFors = await bd.EduFor
+                .OrderByDescending(p =>p.DataFim)
+                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
+                .Take(paginacao.ItemsPorPagina)
+                .ToListAsync();
+
+            ListaDadosViewModel modelo = new ListaDadosViewModel
+            {
+                Paginacao = paginacao,
+                EduFor = eduFors
+            };
+
+            return base.View(modelo);
+        }
         // GET: EduFor/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -33,7 +50,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var eduFor = await _context.EduFor
+            var eduFor = await bd.EduFor
                 .FirstOrDefaultAsync(m => m.EduForId == id);
             if (eduFor == null)
             {
@@ -58,8 +75,8 @@ namespace CurriculumDavid.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(eduFor);
-                await _context.SaveChangesAsync();
+                bd.Add(eduFor);
+                await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(eduFor);
@@ -73,7 +90,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var eduFor = await _context.EduFor.FindAsync(id);
+            var eduFor = await bd.EduFor.FindAsync(id);
             if (eduFor == null)
             {
                 return NotFound();
@@ -97,8 +114,8 @@ namespace CurriculumDavid.Controllers
             {
                 try
                 {
-                    _context.Update(eduFor);
-                    await _context.SaveChangesAsync();
+                    bd.Update(eduFor);
+                    await bd.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +141,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var eduFor = await _context.EduFor
+            var eduFor = await bd.EduFor
                 .FirstOrDefaultAsync(m => m.EduForId == id);
             if (eduFor == null)
             {
@@ -139,15 +156,15 @@ namespace CurriculumDavid.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var eduFor = await _context.EduFor.FindAsync(id);
-            _context.EduFor.Remove(eduFor);
-            await _context.SaveChangesAsync();
+            var eduFor = await bd.EduFor.FindAsync(id);
+            bd.EduFor.Remove(eduFor);
+            await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EduForExists(int id)
         {
-            return _context.EduFor.Any(e => e.EduForId == id);
+            return bd.EduFor.Any(e => e.EduForId == id);
         }
     }
 }

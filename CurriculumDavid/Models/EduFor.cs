@@ -10,7 +10,7 @@ namespace CurriculumDavid.Models
     {
         public int EduForId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Deve preencher o nome")]
         [Display(Name = "Data de Início")]
         [DataType(DataType.Date)]
         public  DateTime DataInicio { get; set; }
