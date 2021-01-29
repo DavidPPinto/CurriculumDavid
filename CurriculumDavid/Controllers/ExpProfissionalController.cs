@@ -12,17 +12,36 @@ namespace CurriculumDavid.Controllers
 {
     public class ExpProfissionalController : Controller
     {
-        private readonly CurriculumBdContext _context;
+        private readonly CurriculumBdContext bd;
 
         public ExpProfissionalController(CurriculumBdContext context)
         {
-            _context = context;
+            bd = context;
         }
 
         // GET: ExpProfissional
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagina = 1)
         {
-            return View(await _context.ExpProfissional.ToListAsync());
+            Paginacao paginacao = new Paginacao
+            {
+                TotalItems = await bd.ExpProfissional.CountAsync(),
+                PaginaAtual = pagina
+            };
+
+            List<ExpProfissional> expProfissionals = await bd.ExpProfissional
+               .OrderByDescending(p => p.DataFim)
+               .Skip(paginacao.ItemsPorPagina * (pagina - 1))
+               .Take(paginacao.ItemsPorPagina)
+               .ToListAsync();
+
+            ListaDadosViewModel modelo = new ListaDadosViewModel
+            {
+                Paginacao = paginacao,
+                ExpProfissional = expProfissionals
+            };
+
+            return base.View(modelo);
+
         }
 
         // GET: ExpProfissional/Details/5
@@ -33,7 +52,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var expProfissional = await _context.ExpProfissional
+            var expProfissional = await bd.ExpProfissional
                 .FirstOrDefaultAsync(m => m.ExpProfissionalId == id);
             if (expProfissional == null)
             {
@@ -58,8 +77,8 @@ namespace CurriculumDavid.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(expProfissional);
-                await _context.SaveChangesAsync();
+                bd.Add(expProfissional);
+                await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(expProfissional);
@@ -73,7 +92,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var expProfissional = await _context.ExpProfissional.FindAsync(id);
+            var expProfissional = await bd.ExpProfissional.FindAsync(id);
             if (expProfissional == null)
             {
                 return NotFound();
@@ -97,8 +116,8 @@ namespace CurriculumDavid.Controllers
             {
                 try
                 {
-                    _context.Update(expProfissional);
-                    await _context.SaveChangesAsync();
+                    bd.Update(expProfissional);
+                    await bd.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +143,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var expProfissional = await _context.ExpProfissional
+            var expProfissional = await bd.ExpProfissional
                 .FirstOrDefaultAsync(m => m.ExpProfissionalId == id);
             if (expProfissional == null)
             {
@@ -139,15 +158,15 @@ namespace CurriculumDavid.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var expProfissional = await _context.ExpProfissional.FindAsync(id);
-            _context.ExpProfissional.Remove(expProfissional);
-            await _context.SaveChangesAsync();
+            var expProfissional = await bd.ExpProfissional.FindAsync(id);
+            bd.ExpProfissional.Remove(expProfissional);
+            await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExpProfissionalExists(int id)
         {
-            return _context.ExpProfissional.Any(e => e.ExpProfissionalId == id);
+            return bd.ExpProfissional.Any(e => e.ExpProfissionalId == id);
         }
     }
 }

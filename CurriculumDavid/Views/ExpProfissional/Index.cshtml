@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CurriculumDavid.Models.ExpProfissional>
+﻿@model ListaDadosViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,48 +10,91 @@
     <a class="btn btn-outline-primary" asp-action="Create">Novo registo</a>
 </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DataInicio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataFim)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeEmpresa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFim)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeEmpresa)
-
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funcao)
-            </td>
-            <td>
-                @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.ExpProfissionalId">Editar</a> |*@
-                <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.ExpProfissionalId">Detalhes</a> |
-                <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.ExpProfissionalId">Apagar</a>
-            </td>
-        </tr>
+@if (Model.ExpProfissional.Count() == 0)
+{
+    <p>Não existem dados para mostrar</p>
 }
-    </tbody>
-  
-</table>
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpProfissional[0].DataInicio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpProfissional[0].DataFim)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpProfissional[0].NomeEmpresa)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExpProfissional[0].Funcao)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ExpProfissional)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataFim)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeEmpresa)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Funcao)
+                    </td>
+                    <td>
+                        @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.ExpProfissionalId">Editar</a> |*@
+                        <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.ExpProfissionalId">Detalhes</a> |
+                        <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.ExpProfissionalId">Apagar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            @{
+                int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+                //int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS / 2;
+                if (paginaInicial < 1)
+                {
+                    paginaInicial = 1;
+                }
+
+                int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+                //int paginaFinal = paginaInicial + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS - 1;
+                if (paginaFinal > Model.Paginacao.TotalPaginas)
+                {
+                    paginaFinal = Model.Paginacao.TotalPaginas;
+                }
+            }
+
+            <li class="page-item @(Model.Paginacao.PaginaAtual == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pagina="1">Primeiro</a>
+            </li>
+
+            @for (int i = paginaInicial; i <= paginaFinal; i++)
+            {
+                <li class="page-item @(Model.Paginacao.PaginaAtual == i ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Paginacao.PaginaAtual == Model.Paginacao.TotalPaginas  ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pagina="@Model.Paginacao.TotalPaginas">Último</a>
+            </li>
+        </ul>
+    </nav>
+}

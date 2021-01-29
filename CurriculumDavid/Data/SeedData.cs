@@ -17,11 +17,14 @@ namespace CurriculumDavid.Data
         {
             //InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
             //InsereComLingFicticiasParaTestarPaginacao(bd);
-            InsereEduForFicticiasParaTestarPaginacao(bd);
+            //InsereEduForFicticiasParaTestarPaginacao(bd);
+            //InsereExpProfissionalFicticiasParaTestarPaginacao(bd);
+
 
             if (bd.DadosPessoais.Any()) return;
             if (bd.ComLing.Any()) return;
             if (bd.EduFor.Any()) return;
+            if (bd.ExpProfissional.Any()) return;
 
             bd.DadosPessoais.AddRange(new DadosPessoais[] {
                 new DadosPessoais
@@ -47,6 +50,21 @@ namespace CurriculumDavid.Data
                 }
             });
 
+            bd.SaveChanges();
+        }
+
+        private static void InsereExpProfissionalFicticiasParaTestarPaginacao(CurriculumBdContext bd)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                bd.ExpProfissional.Add(new ExpProfissional
+                {
+                    DataInicio = new DateTime(2019, 01, 12),
+                    DataFim = new DateTime(2019, 01, 12),
+                    NomeEmpresa = "Aola " + i,
+                    Funcao = "joajf " + i
+                });
+            }
             bd.SaveChanges();
         }
 
