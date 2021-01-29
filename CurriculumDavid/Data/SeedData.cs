@@ -15,6 +15,8 @@ namespace CurriculumDavid.Data
 
         private static void InsereDadosFicticios(CurriculumBdContext bd)
         {
+            InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
+
             if (bd.DadosPessoais.Any()) return;
 
             bd.DadosPessoais.AddRange(new DadosPessoais[] {
@@ -43,5 +45,24 @@ namespace CurriculumDavid.Data
 
             bd.SaveChanges();
         }
+        private static void InsereDadosPessoaisFicticiosParaTestarPaginacao(CurriculumBdContext bd)
+        {
+
+
+            for (int i = 0; i < 1000; i++)
+            {
+                bd.DadosPessoais.Add(new DadosPessoais
+                {
+                    Nome = "Produto " + i,
+                    Morada = "teste" + i,
+                    Telefone = "918547412",
+                    Email = "f@f.pt"
+                });
+            }
+
+            bd.SaveChanges();
+        }
     }
+
 }
+

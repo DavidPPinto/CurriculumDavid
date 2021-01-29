@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CurriculumDavid.Models.DadosPessoais>
+﻿@model ListaDadosPessoaisViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dados Pessoais";
 }
 
 <h1>Dados Pessoais</h1>
@@ -9,50 +9,91 @@
     <a class="btn btn-outline-primary" asp-action="Create">Novo registo</a>
 </p>
 
+@if (Model.DadosPessoais.Count() == 0)
+{
+    <p>Não existem dados para mostrar</p>
+}
+else
+{
+    <table class="table row">
 
-<table class="table row">
+        @foreach (var item in Model.DadosPessoais)
+        {
+            <tr>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Nome)
+                </th>
+                <td class="col-md-7">
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td class="col-md-4">
+                    @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Editar</a> |*@
+                    <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.DadosPessoaisId">Detalhes</a> |
+                    <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Apagar</a>
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Morada)
+                </th>
+                <td class="col-md-7">
+                    @Html.DisplayFor(modelItem => item.Morada)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Telefone)
+                </th>
+                <td class="col-md-7">
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+            </tr>
+            <tr>
+                <th class="col-md-1">
+                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Email)
+                </th>
+                <td class="col-md-7">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+            </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <td class="col-md-7">
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td class="col-md-4">
-                @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Editar</a> |*@
-                <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.DadosPessoaisId">Detalhes</a> |
-                <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Apagar</a>
-            </td>
-        </tr>
-        <tr>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Morada)
-            </th>
-            <td class="col-md-7">
-                @Html.DisplayFor(modelItem => item.Morada)
-            </td>
-        </tr>
-        <tr>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <td class="col-md-7">
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-        </tr>
-        <tr>
-            <th class="col-md-1">
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <td class="col-md-7">
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-        </tr>
+        }
 
-    }
+    </table>
 
-</table>
+    <nav>
+        <ul class="pagination">
+            @{
+                int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+                //int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS / 2;
+                if (paginaInicial < 1)
+                {
+                    paginaInicial = 1;
+                }
 
+                int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+                //int paginaFinal = paginaInicial + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS - 1;
+                if (paginaFinal > Model.Paginacao.TotalPaginas)
+                {
+                    paginaFinal = Model.Paginacao.TotalPaginas;
+                }
+            }
+
+            <li class="page-item @(Model.Paginacao.PaginaAtual == 1 ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pagina="1">Primeiro</a>
+            </li>
+
+            @for (int i = paginaInicial; i <= paginaFinal; i++)
+            {
+                <li class="page-item @(Model.Paginacao.PaginaAtual == i ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-pagina="@i">@i</a>
+                </li>
+            }
+
+            <li class="page-item @(Model.Paginacao.PaginaAtual == Model.Paginacao.TotalPaginas  ? "disabled" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pagina="@Model.Paginacao.TotalPaginas">Último</a>
+            </li>
+        </ul>
+    </nav>
+
+}

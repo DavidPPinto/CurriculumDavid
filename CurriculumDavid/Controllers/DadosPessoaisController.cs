@@ -20,10 +20,29 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: DadosPessoais
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagina = 1)
         {
-            return View(await bd.DadosPessoais.ToListAsync());
+            Paginacao paginacao = new Paginacao
+            {
+                TotalItems = await bd.DadosPessoais.CountAsync(),
+                PaginaAtual = pagina
+            };
+
+            List<DadosPessoais> dadosPessoais = await bd.DadosPessoais
+                .OrderBy(p => p.Nome)
+                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
+                .Take(paginacao.ItemsPorPagina)
+                .ToListAsync();
+
+            ListaDadosViewModel modelo = new ListaDadosViewModel
+            {
+                Paginacao = paginacao,
+                DadosPessoais = dadosPessoais
+            };
+
+            return base.View(modelo);
         }
+      
 
         // GET: DadosPessoais/Details/5
         public async Task<IActionResult> Details(int? id)
