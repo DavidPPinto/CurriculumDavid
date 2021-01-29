@@ -12,10 +12,12 @@ namespace CurriculumDavid.Models
 
         [Required]
         [Display(Name = "Data de Início")]
+        [DataType(DataType.Date)]
         public  DateTime DataInicio { get; set; }
 
         [Required]
         [Display(Name = "Data de Fim")]
+        [DataType(DataType.Date)]
         public DateTime DataFim { get; set; }
 
         [Required]

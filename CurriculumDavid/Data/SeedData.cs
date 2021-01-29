@@ -15,7 +15,8 @@ namespace CurriculumDavid.Data
 
         private static void InsereDadosFicticios(CurriculumBdContext bd)
         {
-            InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
+            //InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
+            InsereComLingFicticiasParaTestarPaginacao(bd);
 
             if (bd.DadosPessoais.Any()) return;
 
@@ -45,6 +46,25 @@ namespace CurriculumDavid.Data
 
             bd.SaveChanges();
         }
+
+        private static void InsereComLingFicticiasParaTestarPaginacao(CurriculumBdContext bd)
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                bd.ComLing.Add(new ComLing
+                {
+                    Lingua = "A " + i,
+                    CompreensaoOral = "B" + i,
+                    Leitura = "A " + i,
+                    ProducaoOral = "B " + i,
+                    InteracaoOral = "A " + i,
+                    Escrita = "B " + i
+                });
+            }
+
+            bd.SaveChanges();
+        }
+
         private static void InsereDadosPessoaisFicticiosParaTestarPaginacao(CurriculumBdContext bd)
         {
 

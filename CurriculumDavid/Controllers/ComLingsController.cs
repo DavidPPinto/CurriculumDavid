@@ -12,18 +12,37 @@ namespace CurriculumDavid.Controllers
 {
     public class ComLingsController : Controller
     {
-        private readonly CurriculumBdContext _context;
+        private readonly CurriculumBdContext bd;
 
         public ComLingsController(CurriculumBdContext context)
         {
-            _context = context;
+            bd = context;
         }
 
         // GET: ComLings
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagina = 1)
         {
-            return View(await _context.ComLing.ToListAsync());
+            Paginacao paginacao = new Paginacao
+            {
+                TotalItems = await bd.ComLing.CountAsync(),
+                PaginaAtual = pagina
+            };
+
+            List<ComLing> comLing = await bd.ComLing
+                .OrderBy(p => p.Lingua)
+                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
+                .Take(paginacao.ItemsPorPagina)
+                .ToListAsync();
+
+            ListaDadosViewModel modelo = new ListaDadosViewModel
+            {
+                Paginacao = paginacao,
+                ComLing = comLing
+            };
+
+            return base.View(modelo);
         }
+      
 
         // GET: ComLings/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -33,7 +52,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var comLing = await _context.ComLing
+            var comLing = await bd.ComLing
                 .FirstOrDefaultAsync(m => m.CompetenciasId == id);
             if (comLing == null)
             {
@@ -58,8 +77,8 @@ namespace CurriculumDavid.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(comLing);
-                await _context.SaveChangesAsync();
+                bd.Add(comLing);
+                await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(comLing);
@@ -73,7 +92,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var comLing = await _context.ComLing.FindAsync(id);
+            var comLing = await bd.ComLing.FindAsync(id);
             if (comLing == null)
             {
                 return NotFound();
@@ -97,8 +116,8 @@ namespace CurriculumDavid.Controllers
             {
                 try
                 {
-                    _context.Update(comLing);
-                    await _context.SaveChangesAsync();
+                    bd.Update(comLing);
+                    await bd.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +143,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            var comLing = await _context.ComLing
+            var comLing = await bd.ComLing
                 .FirstOrDefaultAsync(m => m.CompetenciasId == id);
             if (comLing == null)
             {
@@ -139,15 +158,15 @@ namespace CurriculumDavid.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comLing = await _context.ComLing.FindAsync(id);
-            _context.ComLing.Remove(comLing);
-            await _context.SaveChangesAsync();
+            var comLing = await bd.ComLing.FindAsync(id);
+            bd.ComLing.Remove(comLing);
+            await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ComLingExists(int id)
         {
-            return _context.ComLing.Any(e => e.CompetenciasId == id);
+            return bd.ComLing.Any(e => e.CompetenciasId == id);
         }
     }
 }
