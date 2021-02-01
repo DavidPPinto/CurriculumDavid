@@ -1,18 +1,17 @@
 ﻿@model CurriculumDavid.Models.ComLing
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Editar</h1>
+<h1>Criar</h1>
 
-<h4>Competências Linguísticas</h4>
+<h4>Competências Linguísticaa</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CompetenciasId" />
             <div class="form-group">
                 <label asp-for="Lingua" class="control-label"></label>
                 <input asp-for="Lingua" class="form-control" />
@@ -43,14 +42,17 @@
                 <input asp-for="Escrita" class="form-control" />
                 <span asp-validation-for="Escrita" class="text-danger"></span>
             </div>
+      <div class="form-group">
+                <label asp-for="DadosPessoaisId" class="control-label"></label>
+                <select asp-for="DadosPessoaisId" class ="form-control" asp-items="ViewBag.DadosPessoaisId"></select>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Guardar" class="btn btn-success" />
+                <input type="submit" value="Criar" class="btn btn-success" /> |
                 <a class="btn btn-outline-primary" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
 </div>
-
 
 
 @section Scripts {

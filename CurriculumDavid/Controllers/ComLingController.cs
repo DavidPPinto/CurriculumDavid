@@ -10,16 +10,16 @@ using CurriculumDavid.Models;
 
 namespace CurriculumDavid.Controllers
 {
-    public class ComLingsController : Controller
+    public class ComLingController : Controller
     {
         private readonly CurriculumBdContext bd;
 
-        public ComLingsController(CurriculumBdContext context)
+        public ComLingController(CurriculumBdContext context)
         {
             bd = context;
         }
 
-        // GET: ComLings
+        // GET: ComLing
         public async Task<IActionResult> Index(int pagina = 1)
         {
             Paginacao paginacao = new Paginacao
@@ -29,6 +29,7 @@ namespace CurriculumDavid.Controllers
             };
 
             List<ComLing> comLing = await bd.ComLing
+                .Include(p=> p.DadosPessoais)
                 .OrderBy(p => p.Lingua)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
                 .Take(paginacao.ItemsPorPagina)
@@ -44,7 +45,7 @@ namespace CurriculumDavid.Controllers
         }
       
 
-        // GET: ComLings/Details/5
+        // GET: ComLing/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -62,18 +63,19 @@ namespace CurriculumDavid.Controllers
             return View(comLing);
         }
 
-        // GET: ComLings/Create
+        // GET: ComLing/Create
         public IActionResult Create()
         {
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email");
             return View();
         }
 
-        // POST: ComLings/Create
+        // POST: ComLing/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompetenciasId,Lingua,CompreensaoOral,Leitura,ProducaoOral,InteracaoOral,Escrita")] ComLing comLing)
+        public async Task<IActionResult> Create([Bind("CompetenciasId,Lingua,CompreensaoOral,Leitura,ProducaoOral,InteracaoOral,Escrita,DadosPessoaisId")] ComLing comLing)
         {
             if (ModelState.IsValid)
             {
@@ -81,10 +83,11 @@ namespace CurriculumDavid.Controllers
                 await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", comLing.DadosPessoaisId);
             return View(comLing);
         }
 
-        // GET: ComLings/Edit/5
+        // GET: ComLing/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,15 +100,16 @@ namespace CurriculumDavid.Controllers
             {
                 return NotFound();
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", comLing.DadosPessoaisId);
             return View(comLing);
         }
 
-        // POST: ComLings/Edit/5
+        // POST: ComLing/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CompetenciasId,Lingua,CompreensaoOral,Leitura,ProducaoOral,InteracaoOral,Escrita")] ComLing comLing)
+        public async Task<IActionResult> Edit(int id, [Bind("CompetenciasId,Lingua,CompreensaoOral,Leitura,ProducaoOral,InteracaoOral,Escrita,DadosPessoaisId")] ComLing comLing)
         {
             if (id != comLing.CompetenciasId)
             {
@@ -132,10 +136,11 @@ namespace CurriculumDavid.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", comLing.DadosPessoaisId);
             return View(comLing);
         }
 
-        // GET: ComLings/Delete/5
+        // GET: ComLing/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,7 +158,7 @@ namespace CurriculumDavid.Controllers
             return View(comLing);
         }
 
-        // POST: ComLings/Delete/5
+        // POST: ComLing/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

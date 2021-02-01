@@ -29,6 +29,9 @@ namespace CurriculumDavid.Models
         [StringLength(300)]
         [Display(Name = "Função")]
         public string Funcao { get; set; }
+        public int DadosPessoaisId { get; set; }
+        public DadosPessoais DadosPessoais { get; set; }
+
 
     }
 }

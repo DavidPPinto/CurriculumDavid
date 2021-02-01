@@ -29,5 +29,9 @@ namespace CurriculumDavid.Models
         [StringLength(300)]
         [Display(Name = "Entidade Formadora")]
         public string EntFormadora { get; set; }
+
+        public int DadosPessoaisId { get; set; }
+        public DadosPessoais DadosPessoais { get; set; }
+
     }
 }

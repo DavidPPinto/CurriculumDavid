@@ -41,5 +41,9 @@ namespace CurriculumDavid.Models
         [StringLength(4)]
         [Display(Name = "Escrita")]
         public string Escrita { get; set; }
+        
+        public int DadosPessoaisId { get; set; }
+        public DadosPessoais DadosPessoais { get; set; }
+
     }
 }

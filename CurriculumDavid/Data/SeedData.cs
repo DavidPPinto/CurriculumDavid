@@ -10,12 +10,29 @@ namespace CurriculumDavid.Data
     {
         internal static void PreencheDadosPessoais(CurriculumBdContext bd)
         {
-            InsereDadosFicticios(bd);
+            //InsereDadosPessoaisFicticios(bd);
+            //InsereDadosFicticios(bd);
+        }
+        private static void InsereDadosPessoaisFicticios(CurriculumBdContext bd)
+        {
+            //GaranteExistenciaDadosPessoais(bd, "João", "rua", "912585214", "f@peo.pt");
+            //GaranteExistenciaDadosPessoais(bd, "Maria");
+            //GaranteExistenciaDadosPessoais(bd, "Manuel");
         }
 
+        private static void GaranteExistenciaDadosPessoais(CurriculumBdContext bd, string nome)
+        {
+            DadosPessoais dadospessoais = bd.DadosPessoais.FirstOrDefault(c => c.Nome == nome);
+            if (dadospessoais == null)
+            {
+                dadospessoais = new DadosPessoais { Nome = nome };
+                bd.DadosPessoais.Add(dadospessoais);
+                bd.SaveChanges();
+            }
+        }
         private static void InsereDadosFicticios(CurriculumBdContext bd)
         {
-            //InsereDadosPessoaisFicticiosParaTestarPaginacao(bd);
+            
             //InsereComLingFicticiasParaTestarPaginacao(bd);
             //InsereEduForFicticiasParaTestarPaginacao(bd);
             //InsereExpProfissionalFicticiasParaTestarPaginacao(bd);
@@ -26,28 +43,128 @@ namespace CurriculumDavid.Data
             if (bd.EduFor.Any()) return;
             if (bd.ExpProfissional.Any()) return;
 
-            bd.DadosPessoais.AddRange(new DadosPessoais[] {
-                new DadosPessoais
+            DadosPessoais dadosJoao = bd.DadosPessoais.FirstOrDefault(c => c.Nome == "João");
+            DadosPessoais dadosMaria = bd.DadosPessoais.FirstOrDefault(c => c.Nome == "Maria");
+
+            //bd.DadosPessoais.AddRange(new DadosPessoais[] {
+            //    new DadosPessoais
+            //    {
+            //        Nome = "João",
+            //        Morada = "Travessa",
+            //        Telefone = "912345678",
+            //        Email = "fe@g.pt"
+            //    },
+            //    new DadosPessoais
+            //    {
+            //        Nome = "Manuel",
+            //        Morada = "Lugar",
+            //        Telefone = "912345678",
+            //        Email = "gt@g.pt"
+            //    },
+            //    new DadosPessoais
+            //    {
+            //        Nome = "Maria",
+            //        Morada = "Travessa",
+            //        Telefone = "912345678",
+            //        Email = "fe@g.pt"
+            //    }
+            //});
+
+            //bd.SaveChanges();
+
+            bd.ComLing.AddRange(new ComLing[] {
+                new ComLing
                 {
-                    Nome = "João",
-                    Morada = "Travessa",
-                    Telefone = "912345678",
-                    Email = "fe@g.pt"
+                    Lingua = "A1",
+                    CompreensaoOral = "A1",
+                    Leitura = "A1",
+                    ProducaoOral = "A1",
+                    InteracaoOral = "A1",
+                    Escrita= "A1",
+                    DadosPessoais = dadosJoao
+
                 },
-                new DadosPessoais
+                  new ComLing
                 {
-                    Nome = "Manuel",
-                    Morada = "Lugar",
-                    Telefone = "912345678",
-                    Email = "gt@g.pt"
+                    Lingua = "A1",
+                    CompreensaoOral = "A1",
+                    Leitura = "A1",
+                    ProducaoOral = "A1",
+                    InteracaoOral = "A1",
+                    Escrita= "A1",
+                    DadosPessoais = dadosMaria
+
                 },
-                new DadosPessoais
+                 new ComLing
                 {
-                    Nome = "Maria",
-                    Morada = "Travessa",
-                    Telefone = "912345678",
-                    Email = "fe@g.pt"
-                }
+                    Lingua = "B1",
+                    CompreensaoOral = "B1",
+                    Leitura = "A1",
+                    ProducaoOral = "A1",
+                    InteracaoOral = "A1",
+                    Escrita= "A1",
+                    DadosPessoais = dadosJoao
+
+                },
+            });
+
+            bd.SaveChanges();
+            bd.EduFor.AddRange(new EduFor[] {
+                new EduFor
+                {
+                    DataInicio = new DateTime(2019,01,12),
+                    DataFim = new DateTime(2019,01,12),
+                    NomeFormacao = "Licenciatura",
+                    EntFormadora = "Fep",
+                    DadosPessoais = dadosJoao
+                },
+                   new EduFor
+                {
+                    DataInicio = new DateTime(2019,01,12),
+                    DataFim = new DateTime(2019,01,12),
+                    NomeFormacao = "Licenciatura",
+                    EntFormadora = "Fep",
+                    DadosPessoais = dadosMaria
+                },
+                   new EduFor
+                {
+                    DataInicio = new DateTime(2019,01,12),
+                    DataFim = new DateTime(2019,01,12),
+                    NomeFormacao = "Licenciatura",
+                    EntFormadora = "Fep",
+                    DadosPessoais = dadosJoao
+                },
+            });
+
+            bd.SaveChanges();
+            bd.ExpProfissional.AddRange(new ExpProfissional[] {
+                new ExpProfissional
+                {
+                    DataInicio=  new DateTime(2019,01,12),
+                    DataFim =  new DateTime(2019,01,12),
+                    NomeEmpresa = "ised",
+                    Funcao = "tratador",
+                    DadosPessoais = dadosJoao
+                    
+                },
+                    new ExpProfissional
+                {
+                    DataInicio=  new DateTime(2019,01,12),
+                    DataFim =  new DateTime(2019,01,12),
+                    NomeEmpresa = "ised",
+                    Funcao = "tratador",
+                    DadosPessoais = dadosMaria
+
+                },
+                    new ExpProfissional
+                {
+                    DataInicio=  new DateTime(2019,01,12),
+                    DataFim =  new DateTime(2019,01,12),
+                    NomeEmpresa = "ised",
+                    Funcao = "tratador",
+                    DadosPessoais = dadosJoao
+
+                },
             });
 
             bd.SaveChanges();
@@ -105,7 +222,7 @@ namespace CurriculumDavid.Data
         {
 
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 20; i++)
             {
                 bd.DadosPessoais.Add(new DadosPessoais
                 {

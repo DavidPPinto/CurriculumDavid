@@ -32,6 +32,9 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.ExpProfissional[0].Funcao)
                 </th>
+     <th>
+                @Html.DisplayNameFor(model => model.DadosPessoais)
+            </th>
                 <th></th>
             </tr>
         </thead>
@@ -52,6 +55,9 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.Funcao)
                     </td>
+    <td>
+                @Html.DisplayFor(modelItem => item.DadosPessoais.Email)
+            </td>
                     <td>
                         @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.ExpProfissionalId">Editar</a> |*@
                         <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.ExpProfissionalId">Detalhes</a> |

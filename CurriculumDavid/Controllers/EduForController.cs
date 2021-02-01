@@ -29,6 +29,7 @@ namespace CurriculumDavid.Controllers
             };
 
             List<EduFor> eduFors = await bd.EduFor
+                .Include(p => p.DadosPessoais)
                 .OrderByDescending(p =>p.DataFim)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
                 .Take(paginacao.ItemsPorPagina)
@@ -51,6 +52,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var eduFor = await bd.EduFor
+                .Include(e => e.DadosPessoais)
                 .FirstOrDefaultAsync(m => m.EduForId == id);
             if (eduFor == null)
             {
@@ -63,6 +65,7 @@ namespace CurriculumDavid.Controllers
         // GET: EduFor/Create
         public IActionResult Create()
         {
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email");
             return View();
         }
 
@@ -71,7 +74,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EduForId,DataInicio,DataFim,NomeFormacao,EntFormadora")] EduFor eduFor)
+        public async Task<IActionResult> Create([Bind("EduForId,DataInicio,DataFim,NomeFormacao,EntFormadora,DadosPessoaisId")] EduFor eduFor)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +82,7 @@ namespace CurriculumDavid.Controllers
                 await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", eduFor.DadosPessoaisId);
             return View(eduFor);
         }
 
@@ -95,6 +99,7 @@ namespace CurriculumDavid.Controllers
             {
                 return NotFound();
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", eduFor.DadosPessoaisId);
             return View(eduFor);
         }
 
@@ -103,7 +108,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EduForId,DataInicio,DataFim,NomeFormacao,EntFormadora")] EduFor eduFor)
+        public async Task<IActionResult> Edit(int id, [Bind("EduForId,DataInicio,DataFim,NomeFormacao,EntFormadora,DadosPessoaisId")] EduFor eduFor)
         {
             if (id != eduFor.EduForId)
             {
@@ -130,6 +135,7 @@ namespace CurriculumDavid.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", eduFor.DadosPessoaisId);
             return View(eduFor);
         }
 
@@ -142,6 +148,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var eduFor = await bd.EduFor
+		.Include(e => e.DadosPessoais)
                 .FirstOrDefaultAsync(m => m.EduForId == id);
             if (eduFor == null)
             {

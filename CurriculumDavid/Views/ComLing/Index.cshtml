@@ -36,6 +36,9 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.ComLing[0].Escrita)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DadosPessoais)
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -60,6 +63,9 @@ else
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Escrita)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DadosPessoais.Email)
                     </td>
                     <td>
                         @*<a asp-action="Edit" asp-route-id="@item.CompetenciasId">Edit</a> |*@

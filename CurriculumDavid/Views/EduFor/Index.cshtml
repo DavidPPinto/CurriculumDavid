@@ -30,6 +30,9 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.EduFor[0].EntFormadora)
                 </th>
+     <th>
+                @Html.DisplayNameFor(model => model.DadosPessoais)
+            </th>
                 <th></th>
             </tr>
         </thead>
@@ -49,6 +52,9 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.EntFormadora)
                     </td>
+    <td>
+                @Html.DisplayFor(modelItem => item.DadosPessoais.Email)
+            </td>
                     <td>
                         <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.EduForId">Detalhes</a> |
                         <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.EduForId">Apagar</a>

@@ -29,6 +29,7 @@ namespace CurriculumDavid.Controllers
             };
 
             List<ExpProfissional> expProfissionals = await bd.ExpProfissional
+                .Include(p => p.DadosPessoais)
                .OrderByDescending(p => p.DataFim)
                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
                .Take(paginacao.ItemsPorPagina)
@@ -53,6 +54,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var expProfissional = await bd.ExpProfissional
+		.Include(e => e.DadosPessoais)
                 .FirstOrDefaultAsync(m => m.ExpProfissionalId == id);
             if (expProfissional == null)
             {
@@ -65,6 +67,7 @@ namespace CurriculumDavid.Controllers
         // GET: ExpProfissional/Create
         public IActionResult Create()
         {
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email");
             return View();
         }
 
@@ -73,7 +76,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExpProfissionalId,DataInicio,DataFim,NomeEmpresa,Funcao")] ExpProfissional expProfissional)
+        public async Task<IActionResult> Create([Bind("ExpProfissionalId,DataInicio,DataFim,NomeEmpresa,Funcao,DadosPessoaisId")] ExpProfissional expProfissional)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +84,7 @@ namespace CurriculumDavid.Controllers
                 await bd.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", expProfissional.DadosPessoaisId);
             return View(expProfissional);
         }
 
@@ -97,6 +101,7 @@ namespace CurriculumDavid.Controllers
             {
                 return NotFound();
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", expProfissional.DadosPessoaisId);
             return View(expProfissional);
         }
 
@@ -105,7 +110,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExpProfissionalId,DataInicio,DataFim,NomeEmpresa,Funcao")] ExpProfissional expProfissional)
+        public async Task<IActionResult> Edit(int id, [Bind("ExpProfissionalId,DataInicio,DataFim,NomeEmpresa,Funcao,DadosPessoaisId")] ExpProfissional expProfissional)
         {
             if (id != expProfissional.ExpProfissionalId)
             {
@@ -132,6 +137,7 @@ namespace CurriculumDavid.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Email", expProfissional.DadosPessoaisId);
             return View(expProfissional);
         }
 
@@ -144,6 +150,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var expProfissional = await bd.ExpProfissional
+ 		.Include(e => e.DadosPessoais)
                 .FirstOrDefaultAsync(m => m.ExpProfissionalId == id);
             if (expProfissional == null)
             {

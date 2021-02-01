@@ -4,14 +4,16 @@ using CurriculumDavid.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    partial class CurriculumBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210201161026_CorrigidosModelos")]
+    partial class CorrigidosModelos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,9 +75,6 @@ namespace CurriculumDavid.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DadosPessoaisId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)")
@@ -97,8 +96,6 @@ namespace CurriculumDavid.Migrations
                         .HasMaxLength(9);
 
                     b.HasKey("DadosPessoaisId");
-
-                    b.HasIndex("DadosPessoaisId1");
 
                     b.ToTable("DadosPessoais");
                 });
@@ -176,13 +173,6 @@ namespace CurriculumDavid.Migrations
                         .HasForeignKey("DadosPessoaisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CurriculumDavid.Models.DadosPessoais", b =>
-                {
-                    b.HasOne("CurriculumDavid.Models.DadosPessoais", null)
-                        .WithMany("dadosPessoais")
-                        .HasForeignKey("DadosPessoaisId1");
                 });
 
             modelBuilder.Entity("CurriculumDavid.Models.EduFor", b =>

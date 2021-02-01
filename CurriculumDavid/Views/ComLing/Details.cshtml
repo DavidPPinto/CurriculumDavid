@@ -1,57 +1,60 @@
 ﻿@model CurriculumDavid.Models.ComLing
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Apagar</h1>
+<h1>Detalhes</h1>
 
-<h3>Tem a certeza que quer apagar este registo?</h3>
 <div>
     <h4>Competências Linguísticas</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Lingua)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Lingua)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CompreensaoOral)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CompreensaoOral)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Leitura)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Leitura)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ProducaoOral)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ProducaoOral)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.InteracaoOral)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.InteracaoOral)
         </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Escrita)
         </dt>
-        <dd class="col-sm-10">
+        <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Escrita)
         </dd>
+    <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DadosPessoais)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DadosPessoais.Email)
+        </dd>
     </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="CompetenciasId" />
-        <input type="submit" value="Apagar" class="btn btn-danger" /> |
-        <a class="btn btn-outline-primary" asp-action="Index">Voltar</a>
-    </form>
+</div>
+<div>
+    <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.CompetenciasId">Editar</a> |
+    <a class="btn btn-outline-primary" asp-action="Index">Voltar</a>
 </div>
