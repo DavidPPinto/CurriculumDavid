@@ -20,15 +20,15 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: ComLing
-        public async Task<IActionResult> Index(int pagina = 1)
+        public async Task<IActionResult> Index(string nomePesquisar, int pagina = 1)
         {
             Paginacao paginacao = new Paginacao
             {
-                TotalItems = await bd.ComLing.CountAsync(),
+                TotalItems = await bd.ComLing.Where(p => nomePesquisar == null || p.Lingua.Contains(nomePesquisar)).CountAsync(),
                 PaginaAtual = pagina
             };
 
-            List<ComLing> comLing = await bd.ComLing
+            List<ComLing> comLing = await bd.ComLing.Where(p => nomePesquisar == null || p.Lingua.Contains(nomePesquisar))
                 .Include(p=> p.DadosPessoais)
                 .OrderBy(p => p.Lingua)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
@@ -38,7 +38,8 @@ namespace CurriculumDavid.Controllers
             ListaDadosViewModel modelo = new ListaDadosViewModel
             {
                 Paginacao = paginacao,
-                ComLing = comLing
+                ComLing = comLing,
+                NomePesquisar = nomePesquisar
             };
 
             return base.View(modelo);

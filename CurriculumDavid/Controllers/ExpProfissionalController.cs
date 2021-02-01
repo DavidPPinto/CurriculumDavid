@@ -20,15 +20,15 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: ExpProfissional
-        public async Task<IActionResult> Index(int pagina = 1)
+        public async Task<IActionResult> Index(string nomePesquisar, int pagina = 1)
         {
             Paginacao paginacao = new Paginacao
             {
-                TotalItems = await bd.ExpProfissional.CountAsync(),
+                TotalItems = await bd.ExpProfissional.Where(p => nomePesquisar == null || p.NomeEmpresa.Contains(nomePesquisar)).CountAsync(),
                 PaginaAtual = pagina
             };
 
-            List<ExpProfissional> expProfissionals = await bd.ExpProfissional
+            List<ExpProfissional> expProfissionals = await bd.ExpProfissional.Where(p => nomePesquisar == null || p.NomeEmpresa.Contains(nomePesquisar))
                 .Include(p => p.DadosPessoais)
                .OrderByDescending(p => p.DataFim)
                .Skip(paginacao.ItemsPorPagina * (pagina - 1))
@@ -38,7 +38,8 @@ namespace CurriculumDavid.Controllers
             ListaDadosViewModel modelo = new ListaDadosViewModel
             {
                 Paginacao = paginacao,
-                ExpProfissional = expProfissionals
+                ExpProfissional = expProfissionals,
+                NomePesquisar = nomePesquisar
             };
 
             return base.View(modelo);
@@ -54,7 +55,7 @@ namespace CurriculumDavid.Controllers
             }
 
             var expProfissional = await bd.ExpProfissional
-		.Include(e => e.DadosPessoais)
+		        .Include(e => e.DadosPessoais)
                 .FirstOrDefaultAsync(m => m.ExpProfissionalId == id);
             if (expProfissional == null)
             {

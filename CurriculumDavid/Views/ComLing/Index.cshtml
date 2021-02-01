@@ -9,6 +9,23 @@
 <p>
     <a class="btn btn-outline-primary" asp-action="Create">Novo registo</a>
 </p>
+
+<div class="col-md-4 card border-info mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Pesquisa</h5>
+        <form asp-action="Index" method="get">
+            <div class="form-group">
+                <label for="nomePesquisar" class="control-label">Nome</label>
+                <input name="nomePesquisar" class="form-control" type="search" value="@Model.NomePesquisar" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Pesquisar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Limpar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
 @if (Model.ComLing.Count() == 0)
 {
     <p>Não existem dados para mostrar</p>

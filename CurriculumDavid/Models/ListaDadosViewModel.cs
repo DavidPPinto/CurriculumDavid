@@ -15,6 +15,8 @@ namespace CurriculumDavid.Models
 
         public List<ComLing> ComLing { get; set; }
 
+        public string NomePesquisar { get; set; }
+
 
         public Paginacao Paginacao { get; set; }
     }

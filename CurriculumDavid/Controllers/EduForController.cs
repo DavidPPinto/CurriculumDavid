@@ -20,15 +20,15 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: EduFor
-        public async Task<IActionResult> Index(int pagina = 1)
+        public async Task<IActionResult> Index(string nomePesquisar, int pagina = 1)
         {
             Paginacao paginacao = new Paginacao
             {
-                TotalItems = await bd.EduFor.CountAsync(),
+                TotalItems = await bd.EduFor.Where(p => nomePesquisar == null || p.NomeFormacao.Contains(nomePesquisar)).CountAsync(),
                 PaginaAtual = pagina
             };
 
-            List<EduFor> eduFors = await bd.EduFor
+            List<EduFor> eduFors = await bd.EduFor.Where(p => nomePesquisar == null || p.NomeFormacao.Contains(nomePesquisar))
                 .Include(p => p.DadosPessoais)
                 .OrderByDescending(p =>p.DataFim)
                 .Skip(paginacao.ItemsPorPagina * (pagina - 1))
@@ -38,7 +38,8 @@ namespace CurriculumDavid.Controllers
             ListaDadosViewModel modelo = new ListaDadosViewModel
             {
                 Paginacao = paginacao,
-                EduFor = eduFors
+                EduFor = eduFors,
+                NomePesquisar = nomePesquisar
             };
 
             return base.View(modelo);
