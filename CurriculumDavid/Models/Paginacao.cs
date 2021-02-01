@@ -7,7 +7,7 @@ namespace CurriculumDavid.Models
 {
     public class Paginacao
     {
-        public const int NUMERO_ITEMS_PAGINA_PADRAO = 10;
+        public const int NUMERO_ITEMS_PAGINA_PADRAO = 2;
         public const int NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS = 3;
 
 
