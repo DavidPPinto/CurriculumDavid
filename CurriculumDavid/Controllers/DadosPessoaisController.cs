@@ -150,7 +150,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            return View(dadosPessoais);
+            return View("Erro");
         }
 
         // POST: DadosPessoais/Delete/5
@@ -159,6 +159,33 @@ namespace CurriculumDavid.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var dadosPessoais = await bd.DadosPessoais.FindAsync(id);
+
+            try
+            {
+                bd.DadosPessoais.Remove(dadosPessoais);
+                await bd.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                if (bd.ComLing.Any(p => p.DadosPessoaisId == dadosPessoais.DadosPessoaisId))
+                {
+                    ViewBag.Mensagem = "Esta entrada não pode ser apagada porque já tem dados associados.";
+                }
+                if (bd.EduFor.Any(p => p.DadosPessoaisId == dadosPessoais.DadosPessoaisId))
+                {
+                    ViewBag.Mensagem = "Esta entrada não pode ser apagada porque já tem dados associados.";
+                }
+                if (bd.EduFor.Any(p => p.DadosPessoaisId == dadosPessoais.DadosPessoaisId))
+                {
+                    ViewBag.Mensagem = "Esta entrada não pode ser apagada porque já tem dados associados.";
+                }
+                else
+
+                {
+                    ViewBag.Mensagem = "Não foi possível eliminar a entrada. Tente novamente mais tarde e se o problema persistir contacte a assistência";
+                }
+                return View("Erro");
+            }
             bd.DadosPessoais.Remove(dadosPessoais);
             await bd.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

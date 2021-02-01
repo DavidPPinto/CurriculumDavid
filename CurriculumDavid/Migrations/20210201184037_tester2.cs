@@ -2,7 +2,7 @@
 
 namespace CurriculumDavid.Migrations
 {
-    public partial class AteracaoData : Migration
+    public partial class tester2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

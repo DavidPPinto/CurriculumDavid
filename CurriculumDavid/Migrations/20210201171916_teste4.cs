@@ -2,7 +2,7 @@
 
 namespace CurriculumDavid.Migrations
 {
-    public partial class ModelosCompletos1 : Migration
+    public partial class teste4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

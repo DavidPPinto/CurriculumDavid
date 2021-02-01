@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    [Migration("20210201165159_ModelosCompletos")]
-    partial class ModelosCompletos
+    [Migration("20210201171916_teste4")]
+    partial class teste4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,9 @@ namespace CurriculumDavid.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("DadosPessoaisId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)")
@@ -96,6 +99,8 @@ namespace CurriculumDavid.Migrations
                         .HasMaxLength(9);
 
                     b.HasKey("DadosPessoaisId");
+
+                    b.HasIndex("DadosPessoaisId1");
 
                     b.ToTable("DadosPessoais");
                 });
@@ -173,6 +178,13 @@ namespace CurriculumDavid.Migrations
                         .HasForeignKey("DadosPessoaisId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CurriculumDavid.Models.DadosPessoais", b =>
+                {
+                    b.HasOne("CurriculumDavid.Models.DadosPessoais", null)
+                        .WithMany("DadosPessoaiss")
+                        .HasForeignKey("DadosPessoaisId1");
                 });
 
             modelBuilder.Entity("CurriculumDavid.Models.EduFor", b =>

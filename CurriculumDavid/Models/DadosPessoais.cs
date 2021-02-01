@@ -34,7 +34,7 @@ namespace CurriculumDavid.Models
         public ICollection<ExpProfissional> ExpProfissionals { get; set; }
 
         public ICollection<EduFor> EduFors { get; set; }
-        public ICollection<DadosPessoais> dadosPessoais{ get; set; }
+        public ICollection<DadosPessoais> DadosPessoai { get; set; }
 
 
 

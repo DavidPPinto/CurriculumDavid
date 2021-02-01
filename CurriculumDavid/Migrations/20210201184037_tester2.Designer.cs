@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    [Migration("20210129112629_InsereDadosFicticios")]
-    partial class InsereDadosFicticios
+    [Migration("20210201184037_tester2")]
+    partial class tester2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,9 @@ namespace CurriculumDavid.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(4)")
                         .HasMaxLength(4);
+
+                    b.Property<int>("DadosPessoaisId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Escrita")
                         .IsRequired()
@@ -60,6 +63,8 @@ namespace CurriculumDavid.Migrations
 
                     b.HasKey("CompetenciasId");
 
+                    b.HasIndex("DadosPessoaisId");
+
                     b.ToTable("ComLing");
                 });
 
@@ -69,6 +74,9 @@ namespace CurriculumDavid.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DadosPessoaisId1")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -92,6 +100,8 @@ namespace CurriculumDavid.Migrations
 
                     b.HasKey("DadosPessoaisId");
 
+                    b.HasIndex("DadosPessoaisId1");
+
                     b.ToTable("DadosPessoais");
                 });
 
@@ -101,6 +111,9 @@ namespace CurriculumDavid.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DadosPessoaisId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataFim")
                         .HasColumnType("datetime2");
@@ -120,6 +133,8 @@ namespace CurriculumDavid.Migrations
 
                     b.HasKey("EduForId");
 
+                    b.HasIndex("DadosPessoaisId");
+
                     b.ToTable("EduFor");
                 });
 
@@ -129,6 +144,9 @@ namespace CurriculumDavid.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DadosPessoaisId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DataFim")
                         .HasColumnType("datetime2");
@@ -148,7 +166,43 @@ namespace CurriculumDavid.Migrations
 
                     b.HasKey("ExpProfissionalId");
 
+                    b.HasIndex("DadosPessoaisId");
+
                     b.ToTable("ExpProfissional");
+                });
+
+            modelBuilder.Entity("CurriculumDavid.Models.ComLing", b =>
+                {
+                    b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
+                        .WithMany("ComLings")
+                        .HasForeignKey("DadosPessoaisId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CurriculumDavid.Models.DadosPessoais", b =>
+                {
+                    b.HasOne("CurriculumDavid.Models.DadosPessoais", null)
+                        .WithMany("DadosPessoai")
+                        .HasForeignKey("DadosPessoaisId1");
+                });
+
+            modelBuilder.Entity("CurriculumDavid.Models.EduFor", b =>
+                {
+                    b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
+                        .WithMany("EduFors")
+                        .HasForeignKey("DadosPessoaisId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CurriculumDavid.Models.ExpProfissional", b =>
+                {
+                    b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
+                        .WithMany("ExpProfissionals")
+                        .HasForeignKey("DadosPessoaisId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

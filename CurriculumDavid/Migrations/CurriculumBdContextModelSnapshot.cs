@@ -174,14 +174,14 @@ namespace CurriculumDavid.Migrations
                     b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
                         .WithMany("ComLings")
                         .HasForeignKey("DadosPessoaisId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("CurriculumDavid.Models.DadosPessoais", b =>
                 {
                     b.HasOne("CurriculumDavid.Models.DadosPessoais", null)
-                        .WithMany("dadosPessoais")
+                        .WithMany("DadosPessoai")
                         .HasForeignKey("DadosPessoaisId1");
                 });
 
@@ -190,7 +190,7 @@ namespace CurriculumDavid.Migrations
                     b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
                         .WithMany("EduFors")
                         .HasForeignKey("DadosPessoaisId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -199,7 +199,7 @@ namespace CurriculumDavid.Migrations
                     b.HasOne("CurriculumDavid.Models.DadosPessoais", "DadosPessoais")
                         .WithMany("ExpProfissionals")
                         .HasForeignKey("DadosPessoaisId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618
