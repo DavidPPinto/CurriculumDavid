@@ -44,7 +44,7 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: Utilizador/Create
-        public IActionResult Create()
+        public IActionResult Registo()
         {
             return View();
         }
@@ -54,7 +54,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UtilizadorId,Nome,Telefone,Email")] Utilizador utilizador)
+        public async Task<IActionResult> Registo([Bind("UtilizadorId,Nome,Telefone,Email")] Utilizador utilizador)
         {
             if (ModelState.IsValid)
             {
