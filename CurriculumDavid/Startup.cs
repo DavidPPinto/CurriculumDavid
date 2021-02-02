@@ -60,7 +60,8 @@ namespace CurriculumDavid
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
             CurriculumBdContext bd,
-            UserManager<IdentityUser> gestorUtilizadores)
+            UserManager<IdentityUser> gestorUtilizadores,
+            RoleManager<IdentityRole> gestorRoles)
         {
             if (env.IsDevelopment())
             {
@@ -89,13 +90,14 @@ namespace CurriculumDavid
                 endpoints.MapRazorPages();
             });
 
-
-            //SeedData.InsereAdministradorPadraoAsync(gestorUtilizadores).Wait();
+            SeedData.InsereRolesAsync(gestorRoles).Wait();
+            SeedData.InsereAdministradorPadraoAsync(gestorUtilizadores).Wait();
 
 
             if (env.IsDevelopment())
             {
                 SeedData.PreencheDadosPessoais(bd);
+                SeedData.InsereUtilizadoresFicticiosAsync(gestorUtilizadores).Wait();
             }
         }
     }
