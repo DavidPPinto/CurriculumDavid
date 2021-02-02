@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CurriculumDavid.Data;
 using CurriculumDavid.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CurriculumDavid.Controllers
 {
+    [Authorize]
     public class ComLingController : Controller
     {
         private readonly CurriculumBdContext bd;

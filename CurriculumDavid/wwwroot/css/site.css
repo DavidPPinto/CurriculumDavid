@@ -29,8 +29,10 @@ table, th, td {
     background-color: #dddddd;
 }*/
 
+
 nav a:active {
     font-weight: bold;
+    color: white;
 }
 
 /*th {
@@ -84,7 +86,7 @@ a.escola {
 
     a.escola:link {
         /* unvisited link */
-        color: black;
+        color: white;
         text-decoration: none;
     }
 
