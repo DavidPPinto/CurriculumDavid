@@ -14,86 +14,105 @@
     <p>Não existem dados para mostrar</p>
 }
 else
-{
-    <table class="table row">
+{ 
+   
 
-        @foreach (var item in Model.DadosPessoais)
+
+<table class="table row">
+
+    @foreach (var item in Model.DadosPessoais)
         {
-            <tr>
-                <th class="col-md-1">
-                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Nome)
-                </th>
-                <td class="col-md-7">
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td class="col-md-4">
-                    @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Editar</a> |*@
-                    <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.DadosPessoaisId">Detalhes</a> |
-                    <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Apagar</a>
-                </td>
-            </tr>
-            <tr>
-                <th class="col-md-1">
-                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Morada)
-                </th>
-                <td class="col-md-7">
-                    @Html.DisplayFor(modelItem => item.Morada)
-                </td>
-            </tr>
-            <tr>
-                <th class="col-md-1">
-                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Telefone)
-                </th>
-                <td class="col-md-7">
-                    @Html.DisplayFor(modelItem => item.Telefone)
-                </td>
-            </tr>
-            <tr>
-                <th class="col-md-1">
-                    @Html.DisplayNameFor(model => model.DadosPessoais[0].Email)
-                </th>
-                <td class="col-md-7">
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-            </tr>
+        <tr>
+            <th >
+                Fotografia
+            </th>
+            <td >
+                <div style="width:200px">
+                    @if (item.Foto != null)
+                    {
+                        <img src="data:image/jpeg;base64, @Convert.ToBase64String(item.Foto)" class="img-fluid" />
+                    }
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+
+            <th >
+                @Html.DisplayNameFor(model => model.DadosPessoais[0].Nome)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+
+            <td >
+                @*<a class="btn-outline-success" asp-action="Edit" asp-route-id="@item.DadosPessoaisId">Editar</a> |*@
+                <a class="btn-outline-info" asp-action="Details" asp-route-id="@item.DadosPessoaisId">Detalhes</a> |
+                <a class="btn-outline-danger" asp-action="Delete" asp-route-id="@item.DadosPessoaisId">Apagar</a>
+            </td>
+        </tr>
+        <tr>
+            <th >
+                @Html.DisplayNameFor(model => model.DadosPessoais[0].Morada)
+            </th>
+            <td >
+                @Html.DisplayFor(modelItem => item.Morada)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DadosPessoais[0].Telefone)
+            </th>
+            <td >
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+        </tr>
+        <tr>
+            <th >
+                @Html.DisplayNameFor(model => model.DadosPessoais[0].Email)
+            </th>
+            <td >
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+        </tr>
 
         }
 
     </table>
 
-    <nav>
-        <ul class="pagination">
-            @{
-                int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                //int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS / 2;
-                if (paginaInicial < 1)
-                {
-                    paginaInicial = 1;
-                }
-
-                int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
-                //int paginaFinal = paginaInicial + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS - 1;
-                if (paginaFinal > Model.Paginacao.TotalPaginas)
-                {
-                    paginaFinal = Model.Paginacao.TotalPaginas;
-                }
-            }
-
-            <li class="page-item @(Model.Paginacao.PaginaAtual == 1 ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pagina="1" asp-route-nomePesquisar="@Model.NomePesquisar">Primeiro</a>
-            </li>
-
-            @for (int i = paginaInicial; i <= paginaFinal; i++)
+<nav>
+    <ul class="pagination">
+        @{
+            int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+            //int paginaInicial = Model.Paginacao.PaginaAtual - Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS / 2;
+            if (paginaInicial < 1)
             {
-                <li class="page-item @(Model.Paginacao.PaginaAtual == i ? "active" : "")">
-                    <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-nomePesquisar="@Model.NomePesquisar">@i</a>
-                </li>
+                paginaInicial = 1;
             }
 
-            <li class="page-item @(Model.Paginacao.PaginaAtual == Model.Paginacao.TotalPaginas  ? "disabled" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pagina="@Model.Paginacao.TotalPaginas" asp-route-nomePesquisar="@Model.NomePesquisar">Último</a>
+            int paginaFinal = Model.Paginacao.PaginaAtual + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS;
+            //int paginaFinal = paginaInicial + Paginacao.NUMERO_PAGINAS_MOSTRAR_ANTES_DEPOIS - 1;
+            if (paginaFinal > Model.Paginacao.TotalPaginas)
+            {
+                paginaFinal = Model.Paginacao.TotalPaginas;
+            }
+        }
+
+        <li class="page-item @(Model.Paginacao.PaginaAtual == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pagina="1" asp-route-nomePesquisar="@Model.NomePesquisar">Primeiro</a>
+        </li>
+
+        @for (int i = paginaInicial; i <= paginaFinal; i++)
+        {
+            <li class="page-item @(Model.Paginacao.PaginaAtual == i ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-pagina="@i" asp-route-nomePesquisar="@Model.NomePesquisar">@i</a>
             </li>
-        </ul>
-    </nav>
+        }
+
+        <li class="page-item @(Model.Paginacao.PaginaAtual == Model.Paginacao.TotalPaginas  ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pagina="@Model.Paginacao.TotalPaginas" asp-route-nomePesquisar="@Model.NomePesquisar">Último</a>
+        </li>
+    </ul>
+</nav>
 
 }

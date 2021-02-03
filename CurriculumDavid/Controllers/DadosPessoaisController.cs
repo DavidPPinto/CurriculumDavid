@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CurriculumDavid.Data;
 using CurriculumDavid.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace CurriculumDavid.Controllers
 {
@@ -75,16 +77,36 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais)
+        public async Task<IActionResult> Create([Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
         {
             if (ModelState.IsValid)
             {
+
+                ActulizaFotoDadosPessoais(dadosPessoais, ficheiroFoto);
+
                 bd.Add(dadosPessoais);
                 await bd.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
+
             }
-            return View(dadosPessoais);
+
+            ViewBag.Mensagem = "Dados adicionados com Sucesso";
+            return View("Sucesso");
+
         }
+        private static void ActulizaFotoDadosPessoais(DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
+            {
+                if (ficheiroFoto != null && ficheiroFoto.Length > 0)
+                {
+                    using (var ficheiroMemoria = new MemoryStream())
+                    {
+                        ficheiroFoto.CopyTo(ficheiroMemoria);
+                        dadosPessoais.Foto = ficheiroMemoria.ToArray();
+                    }
+                }
+            }
+          
 
         // GET: DadosPessoais/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -107,7 +129,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais)
+        public async Task<IActionResult> Edit(int id, [Bind("DadosPessoaisId,Nome,Morada,Telefone,Email,DadosPessoaisId.Foto")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
         {
             if (id != dadosPessoais.DadosPessoaisId)
             {
@@ -116,6 +138,7 @@ namespace CurriculumDavid.Controllers
 
             if (ModelState.IsValid)
             {
+                ActulizaFotoDadosPessoais(dadosPessoais, ficheiroFoto);
                 try
                 {
                     bd.Update(dadosPessoais);
@@ -152,7 +175,7 @@ namespace CurriculumDavid.Controllers
                 return NotFound();
             }
 
-            return View("Erro");
+            return View(dadosPessoais);
         }
 
         // POST: DadosPessoais/Delete/5
@@ -188,8 +211,8 @@ namespace CurriculumDavid.Controllers
                 }
                 return View("Erro");
             }
-            bd.DadosPessoais.Remove(dadosPessoais);
-            await bd.SaveChangesAsync();
+
+            
             return RedirectToAction(nameof(Index));
         }
 

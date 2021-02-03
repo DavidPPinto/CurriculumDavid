@@ -47,8 +47,7 @@ namespace CurriculumDavid
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.MaxFailedAccessAttempts = 5;
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultUI();
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDbContext<CurriculumBdContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CurriculumBdContext")));

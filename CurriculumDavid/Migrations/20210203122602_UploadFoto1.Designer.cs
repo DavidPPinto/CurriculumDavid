@@ -4,14 +4,16 @@ using CurriculumDavid.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CurriculumDavid.Migrations
 {
     [DbContext(typeof(CurriculumBdContext))]
-    partial class CurriculumBdContextModelSnapshot : ModelSnapshot
+    [Migration("20210203122602_UploadFoto1")]
+    partial class UploadFoto1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

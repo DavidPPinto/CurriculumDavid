@@ -29,15 +29,14 @@ namespace CurriculumDavid.Models
         [StringLength(256)]
         public string Email { get; set; }
 
+        public byte[] Foto { get; set; }
+
         public ICollection<ComLing> ComLings { get; set; }
 
         public ICollection<ExpProfissional> ExpProfissionals { get; set; }
 
         public ICollection<EduFor> EduFors { get; set; }
         public ICollection<DadosPessoais> DadosPessoai { get; set; }
-
-
-
-
+        
     }
 }
