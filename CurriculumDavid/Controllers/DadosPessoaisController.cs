@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CurriculumDavid.Controllers
 {
-    [Authorize(Roles = "Administrador, GestorDados")]
+    [Authorize(Roles = "Administrador, GestorDados, Utilizador")]
     public class DadosPessoaisController : Controller
     {
         private readonly CurriculumBdContext bd;

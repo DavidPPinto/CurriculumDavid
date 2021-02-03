@@ -21,20 +21,21 @@
         <div>
             <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
                 <div class="container-fluid">
-                    <a id="inicio" href="#" class="navbar-brand mr-3">A página do David</a>
+                    @*<a id="inicio" href="#" class="navbar-brand mr-3">A página do David</a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
-                    </button>
+                    </button>*@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav">
+                            @if(User.Identity.IsAuthenticated){
                             <a asp-action="Index" asp-controller="Home" class="nav-item nav-link fa fa-home" title="Início"></a>
                             <a asp-action="Index" asp-controller="DadosPessoais" class="nav-item nav-link" target="_self">Dados Pessoais</a>
                             <a asp-action="Index" asp-controller="ExpProfissional" class="nav-item nav-link" target="_self">Experiência Profissional</a>
                             <a asp-action="Index" asp-controller="EduFor" class="nav-item nav-link" target="_self">Educação e Formação</a>
                             <a asp-action="Index" asp-controller="ComLing" class="nav-item nav-link" target="_self">Competências Linguistícas</a>
+                            }
 
-                          
-                            </div>
+                        </div>
                         <div class="navbar-nav ml-auto">
                             <partial name="_LoginPartial" />
                           

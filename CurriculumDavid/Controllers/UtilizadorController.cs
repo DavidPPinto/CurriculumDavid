@@ -35,13 +35,26 @@ namespace CurriculumDavid.Controllers
         [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            Utilizador utilizador;
+
+            if (id != null)
             {
-                return NotFound();
+                utilizador = await bd.Utilizador.SingleOrDefaultAsync(u => u.UtilizadorId == id);
+                if(utilizador == null)
+                {
+                    return NotFound();
+                }
+            }
+            else 
+            {
+                if (!User.IsInRole("Utilizador")) 
+                {
+                    return NotFound();
+                }
             }
 
-            var utilizador = await bd.Utilizador
-                .FirstOrDefaultAsync(m => m.UtilizadorId == id);
+             utilizador = await bd.Utilizador.SingleOrDefaultAsync(c => c.Email == User.Identity.Name);
+            
             if (utilizador == null)
             {
                 return NotFound();
