@@ -7,25 +7,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CurriculumDavid.Data;
 using CurriculumDavid.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CurriculumDavid.Controllers
 {
     public class UtilizadorController : Controller
     {
         private readonly CurriculumBdContext bd;
+        private readonly UserManager<IdentityUser> _gestorUtilizadores;
 
-        public UtilizadorController(CurriculumBdContext context)
+
+        public UtilizadorController(CurriculumBdContext context, UserManager<IdentityUser> gestorUtilizadores)
         {
             bd = context;
+            _gestorUtilizadores = gestorUtilizadores;
         }
 
         // GET: Utilizador
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             return View(await bd.Utilizador.ToListAsync());
         }
 
         // GET: Utilizador/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,15 +61,43 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registo([Bind("UtilizadorId,Nome,Telefone,Email")] Utilizador utilizador)
+        public async Task<IActionResult> Registo(RegistoUtilizadoreViewModel infoUtilizador)
         {
-            if (ModelState.IsValid)
+            IdentityUser utilizadorF = await _gestorUtilizadores.FindByNameAsync(infoUtilizador.Email);
+
+            if (utilizadorF != null)
             {
-                bd.Add(utilizador);
-                await bd.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("Email", "Já existe um cliente/utilizador com o email que especificou.");
             }
-            return View(utilizador);
+
+            utilizadorF = new IdentityUser(infoUtilizador.Email);
+            IdentityResult resultado = await _gestorUtilizadores.CreateAsync(utilizadorF, infoUtilizador.Password);
+            if (!resultado.Succeeded)
+            {
+                ModelState.AddModelError("", "Não foi possível fazer o registo. Por favor tente mais tarde novamente e se o problema persistir contacte a assistência.");
+            }
+            else
+            {
+                await _gestorUtilizadores.AddToRoleAsync(utilizadorF, "Utilizador");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(infoUtilizador);
+            }
+
+
+            Utilizador utilizador = new Utilizador
+            {
+                Nome = infoUtilizador.Nome,
+                Email = infoUtilizador.Email,
+                Telefone = infoUtilizador.Telefone
+            };
+
+            bd.Add(utilizador);
+            await bd.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details));
         }
 
         // GET: Utilizador/Edit/5
@@ -117,6 +152,7 @@ namespace CurriculumDavid.Controllers
         }
 
         // GET: Utilizador/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +171,7 @@ namespace CurriculumDavid.Controllers
         }
 
         // POST: Utilizador/Delete/5
+        [Authorize(Roles = "Administrador")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

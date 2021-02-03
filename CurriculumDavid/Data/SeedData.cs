@@ -12,6 +12,8 @@ namespace CurriculumDavid.Data
 
         private const string NOME_UTILIZADOR_ADMIN_PADRAO = "admin@ipg.pt";
         private const string PASSWORD_UTILIZADOR_ADMIN_PADRAO = "Secret123$";
+        private const string NOME_UTILIZADOR_FICTICIO = "joao@ipg.pt";
+
 
         private const string ROLE_ADIMINISTRADOR = "Administrador";
         private const string ROLE_UTILIZADOR = "Utilizador";
@@ -20,8 +22,26 @@ namespace CurriculumDavid.Data
         internal static void PreencheDadosPessoais(CurriculumBdContext bd)
         {
             InsereDadosPessoaisFicticios(bd);
+            InsereUtilizarFinaisFicticios(bd);
             
         }
+
+        private static void InsereUtilizarFinaisFicticios(CurriculumBdContext bd)
+        {
+            if (!bd.Utilizador.Any(c => c.Email == NOME_UTILIZADOR_FICTICIO))
+            {
+                Utilizador c = new Utilizador
+                {
+                    Nome = "João",
+                    Email = NOME_UTILIZADOR_FICTICIO,
+                    Telefone = "930233223"
+                };
+
+                bd.Utilizador.Add(c);
+                bd.SaveChanges();
+            }
+        }
+
         private static void InsereDadosPessoaisFicticios(CurriculumBdContext bd)
         {
             if (bd.DadosPessoais.Any()) return;
@@ -143,7 +163,7 @@ namespace CurriculumDavid.Data
 
         internal static async Task InsereUtilizadoresFicticiosAsync(UserManager<IdentityUser> gestorUtilizadores)
         {
-            IdentityUser utilizador = await CriaUtilizadorSeNaoExiste(gestorUtilizadores, "joao@ipg.pt", "Secret123$");
+            IdentityUser utilizador = await CriaUtilizadorSeNaoExiste(gestorUtilizadores, NOME_UTILIZADOR_FICTICIO, "Secret123$");
             await AdicionaUtilizadorRoleSeNecessario(gestorUtilizadores, utilizador, ROLE_UTILIZADOR);
 
             IdentityUser gestor = await CriaUtilizadorSeNaoExiste(gestorUtilizadores, "maria@ipg.pt", "Secret123$");
