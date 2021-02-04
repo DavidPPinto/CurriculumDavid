@@ -46,7 +46,7 @@ namespace CurriculumDavid.Controllers
 
             return base.View(modelo);
         }
-      
+
 
         // GET: DadosPessoais/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -77,7 +77,7 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DadosPessoaisId,Nome,Morada,Telefone,Email")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
+        public async Task<IActionResult> Create([Bind("DadosPessoais,Nome,Morada,Telefone,Email,DadosPessoaisId")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
         {
             if (ModelState.IsValid)
             {
@@ -96,17 +96,17 @@ namespace CurriculumDavid.Controllers
 
         }
         private static void ActulizaFotoDadosPessoais(DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
+        {
+            if (ficheiroFoto != null && ficheiroFoto.Length > 0)
             {
-                if (ficheiroFoto != null && ficheiroFoto.Length > 0)
+                using (var ficheiroMemoria = new MemoryStream())
                 {
-                    using (var ficheiroMemoria = new MemoryStream())
-                    {
-                        ficheiroFoto.CopyTo(ficheiroMemoria);
-                        dadosPessoais.Foto = ficheiroMemoria.ToArray();
-                    }
+                    ficheiroFoto.CopyTo(ficheiroMemoria);
+                    dadosPessoais.Foto = ficheiroMemoria.ToArray();
                 }
             }
-          
+        }
+
 
         // GET: DadosPessoais/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -129,35 +129,44 @@ namespace CurriculumDavid.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DadosPessoaisId,Nome,Morada,Telefone,Email,DadosPessoaisId.Foto")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
+        public async Task<IActionResult> Edit(int id, [Bind("DadosPessoaisId,Nome,Morada,Telefone,Email,Foto")] DadosPessoais dadosPessoais, IFormFile ficheiroFoto)
         {
             if (id != dadosPessoais.DadosPessoaisId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                ViewData["DadosPessoaisId"] = new SelectList(bd.DadosPessoais, "DadosPessoaisId", "Nome");
+                return View(dadosPessoais);
+
+            }
+
+
+            try
             {
                 ActulizaFotoDadosPessoais(dadosPessoais, ficheiroFoto);
-                try
-                {
-                    bd.Update(dadosPessoais);
-                    await bd.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DadosPessoaisExists(dadosPessoais.DadosPessoaisId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                bd.Update(dadosPessoais);
+                await bd.SaveChangesAsync();
             }
-            return View(dadosPessoais);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DadosPessoaisExists(dadosPessoais.DadosPessoaisId))
+                {
+                    //todo : Criar view
+                    return NotFound();
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Ocorreu um erro. Não foi possível guardar os dados pessoais.");
+                    return View(dadosPessoais);
+                }
+            }
+
+
+            ViewBag.Mensagem = "Produto alterado com sucesso";
+            return View("Sucesso");
         }
 
         // GET: DadosPessoais/Delete/5
@@ -212,7 +221,7 @@ namespace CurriculumDavid.Controllers
                 return View("Erro");
             }
 
-            
+
             return RedirectToAction(nameof(Index));
         }
 

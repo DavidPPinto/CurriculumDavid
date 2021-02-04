@@ -37,8 +37,8 @@ namespace CurriculumDavid
                 // Password
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequiredUniqueChars = 6;
+                //options.Password.RequiredLength = 8;
+                //options.Password.RequiredUniqueChars = 6;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
 
@@ -95,8 +95,8 @@ namespace CurriculumDavid
 
             if (env.IsDevelopment())
             {
-                SeedData.PreencheDadosPessoais(bd);
-                SeedData.InsereUtilizadoresFicticiosAsync(gestorUtilizadores).Wait();
+                //SeedData.PreencheDadosPessoais(bd);
+                //SeedData.InsereUtilizadoresFicticiosAsync(gestorUtilizadores).Wait();
             }
         }
     }

@@ -40,26 +40,27 @@ namespace CurriculumDavid.Controllers
             if (id != null)
             {
                 utilizador = await bd.Utilizador.SingleOrDefaultAsync(u => u.UtilizadorId == id);
-                if(utilizador == null)
+
+                if (utilizador == null)
                 {
                     return NotFound();
                 }
             }
-            else 
+            else
             {
-                if (!User.IsInRole("Utilizador")) 
+                if (!User.IsInRole("Utilizador"))
+                {
+                    return NotFound();
+                }
+
+
+                utilizador = await bd.Utilizador.SingleOrDefaultAsync(c => c.Email == User.Identity.Name);
+
+                if (utilizador == null)
                 {
                     return NotFound();
                 }
             }
-
-             utilizador = await bd.Utilizador.SingleOrDefaultAsync(c => c.Email == User.Identity.Name);
-            
-            if (utilizador == null)
-            {
-                return NotFound();
-            }
-
             return View(utilizador);
         }
 

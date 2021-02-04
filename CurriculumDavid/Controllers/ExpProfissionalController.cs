@@ -26,7 +26,7 @@ namespace CurriculumDavid.Controllers
         {
             Paginacao paginacao = new Paginacao
             {
-                TotalItems = await bd.ExpProfissional.Where(p => nomePesquisar == null || p.NomeEmpresa.Contains(nomePesquisar)).CountAsync(),
+                TotalItems = await bd.ExpProfissional.Where(p => nomePesquisar == null || p.Funcao.Contains(nomePesquisar)).CountAsync(),
                 PaginaAtual = pagina
             };
 
