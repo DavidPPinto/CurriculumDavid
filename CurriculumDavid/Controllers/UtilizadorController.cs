@@ -111,7 +111,7 @@ namespace CurriculumDavid.Controllers
             bd.Add(utilizador);
             await bd.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Details));
+            return RedirectToAction(nameof(Details),"Utilizador");
         }
 
         // GET: Utilizador/Edit/5
